@@ -1,0 +1,249 @@
+<!-- lokalt-soegeindeks-genereret -->
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lokalhistorisk søgeindeks</title>
+<style>
+/* Alle størrelser er i rem, så A/A+/A++ kan skalere hele siden på én gang. */
+html{font-size:100%}
+html[data-tekst="stor"]{font-size:112.5%}
+html[data-tekst="storst"]{font-size:125%}
+
+:root{
+  --accent:#8E1F49;        /* 8,3:1 mod papir */
+  --paper:#FAF9F5;
+  --paper-dim:#F1E7EC;
+  --ink:#241520;           /* 15,6:1 */
+  --line:#D9C7CF;
+  --muted:#58424D;         /* 8,0:1 mod papir, 7,5:1 mod zebra */
+  --footer-strong:#33202B;
+}
+@media (prefers-contrast:more){
+  :root{--accent:#6E1638;--ink:#000;--muted:#33202B;--line:#9C8A93}
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{
+  background:var(--paper);color:var(--ink);
+  font-family:Georgia,"Times New Roman",serif;
+  font-size:1.25rem;line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+a:focus-visible,button:focus-visible,input:focus-visible,select:focus-visible{
+  outline:3px solid var(--accent);outline-offset:2px;
+}
+
+header{max-width:1100px;margin:0 auto;padding:2rem 1.25rem .5rem}
+.topbar{display:flex;gap:1rem;align-items:flex-start;justify-content:space-between;flex-wrap:wrap}
+h1{font-size:2.1rem;line-height:1.2;margin:0 0 .25rem}
+.sub{color:var(--muted);font-size:1.05rem;margin:0}
+
+/* ---- tekststørrelse ---- */
+.tekststr{display:flex;align-items:center;gap:.5rem;flex:0 0 auto}
+.tekststr .lbl{font-size:.95rem;color:var(--muted)}
+.tekststr button{
+  font-family:inherit;background:#fff;color:var(--ink);
+  border:2px solid var(--line);border-radius:8px;
+  min-width:48px;min-height:48px;padding:0 .6rem;
+  cursor:pointer;line-height:1;
+}
+.tekststr button:nth-of-type(1){font-size:1rem}
+.tekststr button:nth-of-type(2){font-size:1.25rem}
+.tekststr button:nth-of-type(3){font-size:1.5rem}
+.tekststr button:hover{border-color:var(--accent)}
+.tekststr button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent);color:#fff}
+
+.controls{max-width:1100px;margin:1.2rem auto .3rem;padding:0 1.25rem;display:flex;gap:.75rem;flex-wrap:wrap}
+.controls input,.controls select{
+  font-family:inherit;font-size:1.05rem;padding:.65rem .75rem;
+  border:2px solid var(--line);border-radius:8px;background:#fff;color:var(--ink);
+  min-height:48px;
+}
+.controls input{flex:1 1 16rem}
+.controls select{flex:0 0 auto;max-width:100%}
+.count{max-width:1100px;margin:.9rem auto 0;padding:0 1.25rem;color:var(--muted);font-size:1rem}
+.list{max-width:1100px;margin:.6rem auto 3rem;padding:0 1.25rem}
+a.row{
+  display:flex;gap:1rem;align-items:flex-start;text-decoration:none;color:var(--ink);
+  padding:1rem .9rem;border-radius:8px;
+}
+a.row:hover{outline:2px solid var(--accent)}
+a.row:focus-visible{outline:3px solid var(--accent)}
+.row--a{background:var(--paper)}
+.row--b{background:var(--paper-dim)}
+.icon{font-size:1.4rem;flex:0 0 1.9rem;line-height:1.4}
+.col-main{flex:1 1 auto;min-width:0}
+.col-main .t{font-size:1.25rem;font-weight:bold;color:var(--footer-strong);line-height:1.35}
+.col-main .m{font-size:1rem;color:var(--muted);margin-top:.2rem;display:block}
+.col-main .d{font-size:1.05rem;color:var(--ink);margin-top:.4rem;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+.col-type{flex:0 0 auto;font-size:.95rem;color:var(--muted);align-self:center;white-space:nowrap}
+.empty{padding:2rem 0;color:var(--muted)}
+footer{max-width:1100px;margin:0 auto;padding:.6rem 1.25rem 3rem;color:var(--muted);font-size:.95rem;line-height:1.7}
+@media(max-width:640px){
+  .col-type{display:none}
+  header{padding:1.5rem 1rem .5rem}
+  .controls{padding:0 1rem;gap:.6rem}
+  .controls input,.controls select{flex:1 1 100%;width:100%}
+  .count,.list,footer{padding-left:1rem;padding-right:1rem}
+  a.row{padding:1rem .6rem;gap:.75rem}
+  .icon{flex:0 0 1.6rem}
+}
+</style>
+</head>
+<body>
+<header>
+<div class="topbar">
+  <div>
+    <h1>Lokalhistorisk søgeindeks</h1>
+    <p class="sub">52 poster · genereret 3. September 2026, 12:15</p>
+  </div>
+  <div class="tekststr" role="group" aria-label="Tekststørrelse">
+    <span class="lbl" aria-hidden="true">Tekst</span>
+    <button type="button" data-str="normal" aria-pressed="true" aria-label="Normal tekststørrelse">A</button>
+    <button type="button" data-str="stor" aria-pressed="false" aria-label="Større tekst">A+</button>
+    <button type="button" data-str="storst" aria-pressed="false" aria-label="Størst tekst">A++</button>
+  </div>
+</div>
+</header>
+
+<div class="controls">
+<input id="q" type="search" placeholder="Søg i titel, ophav, emne, udgiver, sted og beskrivelse …" aria-label="Søg">
+<select id="omraadeFilter" aria-label="Filtrér på område"><option value="">Alle områder</option></select>
+<select id="typeFilter" aria-label="Filtrér på type"><option value="">Alle typer</option></select>
+<select id="sortBy" aria-label="Sortér">
+<option value="title">Titel A–Å</option>
+<option value="date-new">Dato, nyeste først</option>
+<option value="date-old">Dato, ældste først</option>
+<option value="type">Type</option>
+<option value="omraade">Område</option>
+</select>
+</div>
+
+<p class="count" id="count" role="status" aria-live="polite"></p>
+<div class="list" id="list"></div>
+
+<footer>
+Denne side er selvstændig og indeholder alt indhold direkte i filen. Genkør
+<em>Byg-soegeside.command</em> i mappen for at opdatere søgeindekset, når der er
+lagt nye filer til.
+</footer>
+
+<script>
+const DATA = [{"filnavn": "1-september-2026.html", "appformat": "billedalbum", "title": "1. september 2026", "creator": "", "subject": "", "description": "", "publisher": "", "contributor": "", "date": "", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Pipers Hus - Roskilde", "rights": ""}, {"filnavn": "1-september.html", "appformat": "billedalbum", "title": "1. September", "creator": "", "subject": "", "description": "Tænk sig - tyver herlige mennesker. Gamle skolekammerater som mødtes og sagde hej. Det var så hyggeligt.", "publisher": "", "contributor": "", "date": "", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Roskilde, Pipers Hus", "rights": ""}, {"filnavn": "beskrivelse-af-singlefile-systemet.html", "appformat": "ebog", "title": "Beskrivelse af Singlefile systemet", "creator": "Poul Erik Løvskov", "subject": "singlefile;", "description": "Her er en mere teknisk beskrivelse af et system til at lave lokalhistorisk indhold med.", "publisher": "Privat", "contributor": "Løvskov", "date": "2025-08-16", "type": "Text", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "blomsterne.html", "appformat": "billedalbum", "title": "Blomsterne på torvet", "creator": "Fotograf: Niels Jørgen Rasmussen", "subject": "blomster", "description": "BlomsterneDet er hele året en fornøjelse at se, hvordan kommunens gartnerafdeling kan lave den ene flotte blomsterudsmykning efter den anden ved muren ind til Palæets have. Altid er der noget at glædes over, og altid en ny inspiration lige fra de første forårsplanter til sensommerens pragt. Altid me", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2015-11-02/2025-12-02", "type": "Image", "format": "text/html", "identifier": "Piwigo album 245", "source": "https://sfbbilleder.eu/index.php?/category/245", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "danseskolen-under-jorden.html", "appformat": "lydfortaelling-player", "title": "Danseskolen under jorden", "creator": "Fortalt af Poul Erik Løvskov", "subject": "Danseskole; Ringparken;", "description": "Under Jorden Under bageren og HB Brugsen, i Ringparken, var der en danseskole. Det var Karen Magrethe og Volmer Hansen der drev skolen. Det var et magisk sted jeg husker nu mest Volmer Hansens to store båndoptagere.", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "2026", "type": "Sound", "format": "text/html", "identifier": "", "source": "Gammelt billede og egen lydoptagelse", "language": "da", "relation": "", "coverage": "Ringparken", "rights": "CC BY-NC"}, {"filnavn": "de-bedste-skolekammerater.html", "appformat": "billedalbum", "title": "De bedste skolekammerater", "creator": "", "subject": "", "description": "Vi skal den 1. september mødes igen. Der bliver helt fantastisk at møde alle jer der har mulighed for at komme.", "publisher": "Privat", "contributor": "", "date": "", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "Danseskolen under jorden", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "den-braendende-soe.html", "appformat": "billedalbum", "title": "Den Brændende Sø", "creator": "Fotograf: Niels Jørgen Rasmussen", "subject": "Event", "description": "Den Brændende Sø På Roskildenatten 1.september 2006 fra ca. klokken 20 til midnat blev der sat 1000 blus på søen i Byparken en kæmpemæssig stjerneblomst af mellemøstlig ornamentik, der flammede på vandet. Blussene blev tændt ved skumringstid og brændte til langt ud på natten. Den Brændende Sø blev sk", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2006-09-01", "type": "Image", "format": "text/html", "identifier": "Piwigo album 263", "source": "https://sfbbilleder.eu/index.php?/category/263", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "den-h-se-drage.html", "appformat": "lydfortaelling-player", "title": "Den Hæse Drage", "creator": "", "subject": "Børnehistorie", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "det-findes-ogsaa-paa-musicon.html", "appformat": "billedalbum", "title": "Det findes også på Musicon", "creator": "Niels Jørgen Rasmussen", "subject": "", "description": "Det findes der også på MusiconDet er altid spændende at besøge Musicon, der dukker hele tiden nyt op og gammelt forsvinder. Der er mange eksperimenter, og det har der været i alle årene. Højt og lavt byggeri blander sig med hinanden, og overfladernes struktur og farver er forskellige. Kunst og desig", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Niels Jørgen Rasmussen", "date": "2012-08-21/2026-04-07", "type": "Image", "format": "text/html", "identifier": "Piwigo album 295", "source": "https://sfbbilleder.eu/index.php?/category/295", "language": "da", "relation": "", "coverage": "Roskikde, Danmark", "rights": "CC BY-NC"}, {"filnavn": "domkirkebranden.html", "appformat": "billedalbum", "title": "Domkirkebranden", "creator": "Baltzar", "subject": "Brand, Roskilde Domkirke;", "description": "Branden over Roskilde – 26. august 1968", "publisher": "Privat", "contributor": "Løvskov", "date": "1968-08-26", "type": "Image", "format": "text/html", "identifier": "", "source": "Poul Erik Løvskov", "language": "da", "relation": "", "coverage": "Roskilde, Danmark", "rights": "CC BY-NC"}, {"filnavn": "elleore.html", "appformat": "lydfortaelling-player", "title": "Elleore", "creator": "Fortalt af Niels Jørgen Rasmussen", "subject": "", "description": "Hvis de ikke kender svaret på spørgsmålet, så ved De måske heller ikke, hvor verdens centrum og Nordens fjerde største kongerige ligger. Stedet er nemlig det samme!", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Niels Jørgen Rasmussen fortæller om øen Elleore", "rights": "CC BY-NC"}, {"filnavn": "en-helt-speciel-dag.html", "appformat": "lydfortaelling-player", "title": "En helt speciel dag", "creator": "Fortalt af Poul Erik Løvskov", "subject": "Brand; Lejrskole;", "description": "Den 26. august 1968 er en dato, der står knivskarpt i min hukommelse. Jeg var 15 år gammel, og det var en helt særlig mandag. Vi havde nemlig fri fra skole, fordi vi skulle på lejrskole til Bornholm samme aften. Vi skulle med natfærgen fra København, så hele dagen lå åben foran os.", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "1968-08-26", "type": "Sound", "format": "text/html", "identifier": "", "source": "Egen lydoptagelse", "language": "da", "relation": "Album med billeder fra domkirkebranden", "coverage": "Roskilde og Bornholm", "rights": "CC BY-NC"}, {"filnavn": "flot-soendag-paa-betonven-15.html", "appformat": "billedalbum", "title": "Flot søndag på Betonven 15", "creator": "Morten Hvedsteen Steen", "subject": "", "description": "Kære @alle Tak. Det blev en fantastisk eftermiddag I Røde Kors Fælleshuset på Betonvej, sammen med Mødrehjælpen og Ventilen I Roskilde. Motorcykler - Børn - unge - en ballonklovn - godt vejr og masser af grillpølser - det er lidt opskriften på en skøn eftermiddag - hvor alle bare får noget med…", "publisher": "Røde Kors Roskilde", "contributor": "Morten Hvedsteen Steen med flere", "date": "2026-08-16", "type": "Image", "format": "text/html", "identifier": "", "source": "Facebook", "language": "da", "relation": "Røde Kors Roskilde", "coverage": "Roskilde, august 2026", "rights": "CC BY-NC"}, {"filnavn": "fortidens-taager.html", "appformat": "billedalbum", "title": "Fortidens Tåger", "creator": "", "subject": "Billeder fra Roskillde", "description": "Et kig tilbage på Roskilde. Gamle billeder af bygninger, steder og ting, der vækker minder hos dem, der husker byen fra tidligere tider. Ingen bestemt sammenhæng, bare et nostalgisk gensyn. Poul Erik Løvskov", "publisher": "Privat", "contributor": "", "date": "2018-05-28/2025-07-26", "type": "Image", "format": "text/html", "identifier": "Piwigo album 157", "source": "https://sfbbilleder.eu/index.php?/category/157", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "glemte-butikker.html", "appformat": "billedalbum", "title": "Glemte butikker", "creator": "billeder samlet af Poul Erik Løvskov", "subject": "Butikker", "description": "Glemte butikker i RoskildeRoskilde har altid været fuld af liv, men med tiden forsvinder nogle af de små butikker, der engang var en del af bybilledet. Deres historie er dog ikke glemt, og vi er begyndt at samle billeder og informationer om dem. Dette billedalbum er et levende arkiv, der supplerer v", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2017-04-09/2026-01-08", "type": "Image", "format": "text/html", "identifier": "Piwigo album 220", "source": "https://sfbbilleder.eu/index.php?/category/220", "language": "da", "relation": "", "coverage": "Roskilde, Danmark", "rights": "CC BY-NC"}, {"filnavn": "goda-goda-med-trille-og-wadenius.html", "appformat": "lydfortaelling-player", "title": "Goda' Goda' med Trille og Wadenius", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "haabets-sejl.html", "appformat": "billedalbum", "title": "Håbets Sejl", "creator": "Niels Jørgen Rasmussen", "subject": "Havnefest", "description": "Håbets Sejl stod på Roskilde Havn 9. og 10. december 2006 i forbindelse med julemarked på havnen. Her blev børn og voksne bedt om at skrive deres håb og ønsker for fremtiden på hvide vimpler og hænge dem på sejlets liner. Linerne blev så hængt op i havnens mastekran, så man kunne se hvad Roskildes b", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Niels Jørgen Rasmussen", "date": "2006", "type": "Image", "format": "text/html", "identifier": "Piwigo album 252", "source": "https://sfbbilleder.eu/index.php?/category/252", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "hedeland-og-grusgrave.html", "appformat": "billedalbum", "title": "Hedeland og Grusgrave", "creator": "Niels Jørgen Rasmussen", "subject": "Grusgrave; Naturgenoprettelse;", "description": "Hedeland og grusgrave.Sydøst for Roskilde ligger en stor istidsaflejring, der indeholder store mængder grus og sten. Fra ca. 1900 og frem til omkring 1975 blev der gravet i det område, der i dag er Hedeland. Der blev også gravet andre steder f.eks. i Øde Hastrup, i Himmelev, i Darup og ved Svogersle", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Niels Jørgen Rasmussen", "date": "2004-05-20/2026-06-16", "type": "Image", "format": "text/html", "identifier": "Piwigo album 297", "source": "https://sfbbilleder.eu/index.php?/category/297", "language": "da", "relation": "", "coverage": "Hedeland", "rights": "CC BY-NC"}, {"filnavn": "herfra-har-jeg-mange-minder.html", "appformat": "enkeltbillede", "title": "Gammel Landevej 25", "creator": "Poul Erik Løvskov", "subject": "vej i Roskilde; minder;", "description": "Det første lejlighedskompleks i Roskilde, opført som Socialt Boligbyggeri", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "2025-06-18", "type": "Image", "format": "text/html", "identifier": "https://sfbbilleder.eu/_data/i/upload/2025/06/18/20250618135847-68222799-me.jpg", "source": "Syd for Banens billedgalleri - Roskildebilleder", "language": "da", "relation": "https://sfbbilleder.eu/index.php?/category/177", "coverage": "Gammel Landevej 25, Roskilde", "rights": "CC BY-NC"}, {"filnavn": "historien-om-hvalk-ben.html", "appformat": "lydfortaelling-player", "title": "Historien om Hvalkæben", "creator": "", "subject": "", "description": "Dramatísk historie om fiskere i Nordjylland, hygiejneproblemer, brand og en hvalkæbes forunderlige skæbne.", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Østervangsskolen - fortalt af Niels Jørgen Rasmussen", "rights": "CC BY-NC"}, {"filnavn": "jakobskirken.html", "appformat": "billedalbum", "title": "Jakobskirken", "creator": "Fotograf: Niels Jørgen Rasmussen", "subject": "", "description": "Jakobskirken er et moderne møde med det åndelige. Bygget af rå materialer som røde mursten og beton, skaber kirken en stærk kontrast til de mere traditionelle kirker. Alligevel er dens indre rigt på symbolik. Altervæggens udsmykning, skabt af Hein Heinsen, er et eksempel på dette. Korsets rå skønhed", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Ud over Niels Jørgen Rasmussen har Poul Erik Løvskov bidraget.", "date": "2004-01-09/2026-01-25", "type": "Image", "format": "text/html", "identifier": "Piwigo album 6", "source": "https://sfbbilleder.eu/index.php?/category/6", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "kalle-kodreng-1.html", "appformat": "lydfortaelling-player", "title": "Kalle Kodreng - 1", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "kalle-kodreng-2.html", "appformat": "lydfortaelling-player", "title": "Kalle Kodreng - 2", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "kalle-kodreng-hestesang.html", "appformat": "lydfortaelling-player", "title": "Kalle Kodreng - Hestesang", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "kamstrupsti-eriksvej.html", "appformat": "billedalbum", "title": "Kamstrupsti - Eriksvej", "creator": "", "subject": "En vej i Roskilde som skiftede navn", "description": "Fra Kirkesti til Bymotor Eriksvej i Roskilde er mere end bare asfalt og fortove. Den er et levende stykke byhistorie, der fortæller om en tid med rygende skorstene, driftige fabrikker og drømmen om et bedre liv. Engang en mudret kirkesti ved navn Kamstrupsti, blev den en pulserende industriel livsne", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Samlet af Poul Erik Løvskov", "date": "2010-01-14/2025-02-04", "type": "Image", "format": "text/html", "identifier": "Piwigo album 26", "source": "https://sfbbilleder.eu/index.php?/category/26", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "krukkerne-paa-hestetorvet.html", "appformat": "billedalbum", "title": "Krukkerne på Hestetorvet", "creator": "Niels Jørgen Rasmussen", "subject": "Keramik; Kunst; Hestetorvet;", "description": "RoskildekrukkerneVed Roskildes fejring af byens 1000 års historie i 1998 skænkede Stryhs Leverpostejs Fond dette værk til byen. Det er Peter Brandes, der har lavet de tre kæmpekrukker, der har form som en klassisk amfora, en vase, en søjle eller en urne. Det kan referere til det livgivende vand og d", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Niels Jørgen Rasmussen", "date": "2003-04-26/2026-03-18", "type": "Image", "format": "text/html", "identifier": "Piwigo album 259", "source": "https://sfbbilleder.eu/index.php?/category/259", "language": "da", "relation": "", "coverage": "Roskilde, Roskilde", "rights": "CC BY-NC"}, {"filnavn": "marieh-nen-evigglad.html", "appformat": "lydfortaelling-player", "title": "Mariehønen Evigglad", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "min-farmor-var-fantastisk.html", "appformat": "billedalbum", "title": "Min Farmor var fantastisk", "creator": "Poul Erik Løvskov", "subject": "Familie;", "description": "Jeg kom rigtig meget hos min farmor og farfar i min barndom. Desværre har jeg ikke så mange billeder af dem, men dem jeg har er jeg meget glad for.", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Roskilde - Veddelev", "rights": "CC BY-NC"}, {"filnavn": "min-farmor.html", "appformat": "ebog", "title": "Min Farmor", "creator": "Poul Erik Løvskov", "subject": "", "description": "Fra Gammel Landevej, sommerhuset i Veddelev, Bakkegården og så sluttede det hele på Tåsinge.", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "ca. 1960", "type": "Text", "format": "text/html", "identifier": "", "source": "Egne erindringer", "language": "da", "relation": "", "coverage": "En fortælling om min fantastiske farmor.", "rights": "CC BY-NC"}, {"filnavn": "mumidalen.html", "appformat": "lydfortaelling-player", "title": "Mumidalen", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "musicon-regnvandshaandtering.html", "appformat": "billedalbum", "title": "Musicon Regnvandshåndtering", "creator": "Niels Jørgen Rasmussen", "subject": "Byudvikling", "description": "Regnvand på MusiconNår det regner kraftigt på Musicon belaster det ikke det kommunale kloaknet. Vandet forsinkes og ledes af kanaler hen til Rabalderparken og ender i en sø. Overalt på arealet er der også steder, hvor vandet kan sive ned, og nogle af bygningerne har grønne tage, hvor plantevækst kan", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2012-06-17/2026-01-17", "type": "Image", "format": "text/html", "identifier": "Piwigo album 266", "source": "https://sfbbilleder.eu/index.php?/category/266", "language": "da", "relation": "", "coverage": "Roskilde, Danmark", "rights": "CC BY-NC"}, {"filnavn": "nar-skridt-pa-asfalten-g-r-en-forskel.html", "appformat": "lydfortaelling-player", "title": "Når skridt på asfalten gør en forskel", "creator": "Poul Erik Løvskov", "subject": "Landsindsamling", "description": "En kølig luft af tidligt efterår, der rammer ansigtet og den velkendte lyd af en lille metaldåse, der klirrer blødt ved hvert skridt. Det er en helt almindelig søndag i Roskilde – og dog er den helt anderledes. For i dag går vi ikke bare for motionens skyld. Vi går for dem, der har allermest brug f…", "publisher": "Røde Kors Roskilde", "contributor": "Løvskov", "date": "2026-08-07", "type": "Sound", "format": "text/html", "identifier": "", "source": "Røde Kors Roskildes hjemmeside", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "oh-nelsen-med-dit-je.html", "appformat": "lydfortaelling-player", "title": "Oh Nelsen med dit øje", "creator": "", "subject": "", "description": "", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "okta-kontra-musik.html", "appformat": "lydfortaelling-player", "title": "Okta Kontra", "creator": "Poul Erik Løvskov", "subject": "Gospelsang", "description": "Vi har ikke mange optagelser fra den gang. Der dukkede dog et par gamle kasettebånd op. de er blevet digitaliseret. Lydkvaliteten kunne være bedre, men musikken er som den skal være. Der er en knap til flere sange.", "publisher": "Privat", "contributor": "", "date": "", "type": "Sound", "format": "text/html", "identifier": "", "source": "ca. 1978", "language": "da", "relation": "", "coverage": "Roskilde", "rights": "CC BY-NC"}, {"filnavn": "okta-kontra.html", "appformat": "billedalbum", "title": "Okta Kontra", "creator": "", "subject": "Gospelmusik", "description": "En gospelgruppe fra Roskilde Okta Kontra var en kirkemusikgruppe fra Roskilde med tilknytning til Baptistkirken. De medvirkede ved mange arrangementer som for eksempel gudstjenester, koncerter og diverse kirkelige møder. Gruppen var aktiv i 1970'erne og frem til midten af 1980'erne. Repertoiret…", "publisher": "Privat", "contributor": "", "date": "Ca. 1976", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Roskilde 1970 - ca. 1990", "rights": "CC BY-NC"}, {"filnavn": "pa-to-hjul-for-udsatte-b-rn.html", "appformat": "lydfortaelling-player", "title": "På to hjul for udsatte børn", "creator": "Poul Erik Løvskov", "subject": "Ny aktivitet i Røde Kors Roskilde", "description": "FAKTA Røde Kors MC’erne er en aktivitet under Røde Kors Røde Kors MC’erne i Roskilde tæller foreløbig 19 motorcykler og sammen med den jyske afdeling omkring 75 Aktiviteten skal skabe nogle gode oplevelser for udsatte børn på hele Sjælland De frivillige motorcyklister bruger deres egne motorcykler…", "publisher": "Røde Kors Roskilde", "contributor": "Poul Erik Løvskov", "date": "2026", "type": "Sound", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "Røde Kors Roskilde", "coverage": "Roskilde, Danmark - 2026", "rights": "CC BY-NC"}, {"filnavn": "ringparken.html", "appformat": "billedalbum", "title": "Ringparken", "creator": "Niels Jørgen Rasmussen og Poul Erik Løvskov", "subject": "", "description": "Ringparken – Dengang og Nu Velkommen til historien om Ringparken – et levende stykke Roskilde historie fortalt gennem billeder. Da de første beboere i 1952 flyttede ind i Ringparkens splinternye lejligheder, var det kulminationen på en vision om at skabe moderne, sunde og lysfyldte rammer midt i en", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2010-01-29/2025-12-05", "type": "Image", "format": "text/html", "identifier": "Piwigo album 110", "source": "https://sfbbilleder.eu/index.php?/category/110", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "roskilde-miniby-historien-i-miniatureformat.html", "appformat": "billedalbum", "title": "Roskilde Miniby – Historien i miniatureformat", "creator": "Fotograf: Niels Jørgen Rasmussen", "subject": "Miniatureby; Miniby;", "description": "Tæt på Roskilde Havn gemmer der sig en helt særlig tidsrejse. Dette album inviterer indenfor i en fantastisk miniatureverden, hvor Roskilde by, som den så ud i sine velmagtsdage omkring år 1400, er vækket til live i størrelsesforholdet 1:10.Gennem billederne kommer vi helt tæt på de håndlavede detal", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Niels Jørgen Rasmussen", "date": "2025-07-06", "type": "Image", "format": "text/html", "identifier": "Piwigo album 183", "source": "https://sfbbilleder.eu/index.php?/category/183", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "samling-historier-og-billeder.html", "appformat": "samling-forside", "title": "Historier og billeder", "creator": "Poul Erik Løvsko0v", "subject": "", "description": "Jeg samler løbende billedalbum's og laver lydfortællinger. Du er velkommen til at kigge/lytte med.", "publisher": "Privat", "contributor": "", "date": "", "type": "Collection", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "samling-min-farmor-og-farfar.html", "appformat": "samling-forside", "title": "Min Farmor og Farfar", "creator": "Poul Erik Løvskov", "subject": "Min familie", "description": "Billeder og fortællingen om mine bedsteforældre", "publisher": "Privat", "contributor": "Poul Erik Løvskov", "date": "", "type": "Collection", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "samling-niels-j-rgen-rasmussen.html", "appformat": "samling-forside", "title": "Niels Jørgen Rasmussen", "creator": "Nogle af mine billeder og historier", "subject": "", "description": "Igennem et langt liv har jeg fotograferet og dokumenteret lokalsamfundet.", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "", "type": "Collection", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "samling-sange-og-historier-fra-dengang-mine-b-rn-var-sma.html", "appformat": "samling-forside", "title": "Sange og historier fra dengang mine børn var små", "creator": "Poul Erik Løvskov", "subject": "", "description": "Det er sjovt at lytte tl disse historier og sange vir har hørt dem utallige gange.", "publisher": "Privat", "contributor": "", "date": "", "type": "Collection", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": ""}, {"filnavn": "samling-syd-for-banen.html", "appformat": "samling-forside", "title": "Syd for Banen", "creator": "Poul Erik Løvskov", "subject": "", "description": "Her har du nogle af vores digitale fortællinger. Der er både billed og lyd.", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "", "type": "Collection", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "soester-sidonie.html", "appformat": "enkeltbillede", "title": "Søster Sidonie har taget afsked", "creator": "", "subject": "", "description": "Billedtekst Søster Sidonie har taget afsked med Skt. Josefs Realskole. På billedet siger hun farvel til sin klasse, 1. real. Til venstre lærerrådsformanden A. Den... Respekt for barnets ret til at være sig selv Det er en af de ting, der skal til på en skole, før den rette atmosfære er skabt. –…", "publisher": "", "contributor": "", "date": "2026-09-01", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Skt. Josefs Skole Roskilde", "rights": ""}, {"filnavn": "stjernevinge.html", "appformat": "billedalbum", "title": "Stjernevinge", "creator": "Niels Jørgen Rasmussen", "subject": "jakobskirken; syd for banen;", "description": "et udsmykningsprojekt i Jakobskirken De lokale kunstnere Iben Brøndum og Helle Hove står bag dåbsudsmykningen i kirken. Deres skitseprojekt blev præsenteret i 2017, og en fundraising blandt sponsorer, erhvervsliv og private startede. Opsætningen skete i 2022. Ideen med udsmykningen er at lave en mos", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Iben Brøndum og Helle Hove", "date": "2016-06-04/2026-03-04", "type": "Image", "format": "text/html", "identifier": "Piwigo album 299", "source": "https://sfbbilleder.eu/index.php?/category/299", "language": "da", "relation": "", "coverage": "", "rights": "CC BY-NC"}, {"filnavn": "stofbilleder-fra-aarsfester.html", "appformat": "billedalbum", "title": "Stofbilleder fra årsfester", "creator": "Niels Jørgen Rasmussen", "subject": "Østervangsskolen;", "description": "De små billedtæpper Ved Østervangsskolens indvielse i 1971 startede en tradition. Der skulle være en teaterforestilling hver aften for børn og forældre i hele den uge festen varede, og det var lærerne, der skulle op på scenen. Første forestilling var Kejseres nye klæder med daværende skoleinspektør M", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2026-04-16", "type": "Image", "format": "text/html", "identifier": "Piwigo album 314", "source": "https://sfbbilleder.eu/index.php?/category/314", "language": "da", "relation": "", "coverage": "Østervangsskolen, Roskilde", "rights": "CC BY-NC"}, {"filnavn": "topmoede-i-juli.html", "appformat": "billedalbum", "title": "Topmøde i juli", "creator": "Poul Erik Løvskov", "subject": "", "description": "Hjernetrusten holdt et statusmøde Vi skulle lige have gjort status på vores mange projekter. Det fik vi gjort og lagt planer om det videre arbejde. Det er flere podcasts, færdiggørelse af Lokalhistorie på tværs af generationer. Endelig så vil Poul Erik se på mulighederne for at gøre de vigtigste…", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "", "date": "2026-07-27", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Lammegade, Roskilde", "rights": "CC BY-NC"}, {"filnavn": "traehusene-i-boserup.html", "appformat": "billedalbum", "title": "Træhusene i Boserup", "creator": "Fotos: Medlemmer af mandefællesskaberne", "subject": "Håndværk; fællesskab; flere generationer;", "description": "Mandefællesskaberne hjælper til En gruppe mænd fra mandefællesskaberne har igenne året hjulpet til i Boserup Naturcenter. Der skal bygges to store træhuse. Nu er spærene rejst på det første hus.", "publisher": "Røde Kors Roskilde", "contributor": "", "date": "2026", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Boserup Naturcenter", "rights": "CC BY-NC"}, {"filnavn": "tur-til-udevalla.html", "appformat": "billedalbum", "title": "Tur til Udevalla", "creator": "Fotos: Lena og Poul Erik Løvskov", "subject": "Sverrig", "description": "Under Coronanedlukningen tog Lena og jeg en tur til Udevalla. Vi ville egentlig gerne have fortsat til Oslp, men nej - ingen adgang for danskere. - 3. september 2020", "publisher": "Privat", "contributor": "", "date": "1. - 3. september 2020", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Udevalla og omegn", "rights": "CC BY-NC"}, {"filnavn": "viadukten.html", "appformat": "billedalbum", "title": "Viadukten", "creator": "Syd for Banen", "subject": "", "description": "ViaduktenViadukten er placeret i begyndelsen af Køgevej i Roskilde. Dens primære funktion er at føre togtrafik over Køgevej. Ved kraftig regn kan der forekomme oversvømmelser, og viadukten derfor kan være spærret.", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "njr mfl.", "date": "2016-02-26/2025-03-04", "type": "Image", "format": "text/html", "identifier": "Piwigo album 143", "source": "https://sfbbilleder.eu/index.php?/category/143", "language": "da", "relation": "", "coverage": "roskilde", "rights": "CC BY-NC"}, {"filnavn": "viborg-domkirke.html", "appformat": "billedalbum", "title": "Viborg Domkirke", "creator": "Lena og Poul Erik Løvskov", "subject": "Donkirken i Viborg", "description": "Lena og jeg var en tur i Virborg i april 2025. Her er nogle af vores billeder.", "publisher": "Privat", "contributor": "Lena og Poul Erik Løvskov", "date": "", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Viborg - 2025", "rights": "CC BY-NC"}, {"filnavn": "virksomheder-og-butikker-paa-musicon.html", "appformat": "billedalbum", "title": "Virksomheder og butikker på Musicon", "creator": "Fotograf: Niels Jørgen Rasmussen", "subject": "Butikker; Handel;", "description": "Hvis man leder og kigger sig godt omkring, så finder man nogler herlige butikker på den gamle betonfabrik.", "publisher": "Syd for Banen - Lokalhistorisk Forening", "contributor": "Poul Erik Løvskov", "date": "2026", "type": "Image", "format": "text/html", "identifier": "", "source": "", "language": "da", "relation": "", "coverage": "Roskilde 2026", "rights": "CC BY-NC"}];
+const ICONS = {Sound:"🎧",Image:"🖼️",Text:"📖",Collection:"🗂️",InteractiveResource:"🧩",Event:"📌"};
+
+/* ---- tekststørrelse: A / A+ / A++ ---- */
+(function(){
+  const knapper = document.querySelectorAll(".tekststr button");
+  function saet(v, gem){
+    if(v && v!=="normal"){ document.documentElement.setAttribute("data-tekst", v); }
+    else { document.documentElement.removeAttribute("data-tekst"); v="normal"; }
+    knapper.forEach(k=>k.setAttribute("aria-pressed", String(k.dataset.str===v)));
+    if(gem){ try{ localStorage.setItem("lokalhist-tekst", v); }catch(e){} }
+  }
+  let gemt = null;
+  try{ gemt = localStorage.getItem("lokalhist-tekst"); }catch(e){}
+  if(gemt) saet(gemt, false);
+  knapper.forEach(k=>k.addEventListener("click", ()=>saet(k.dataset.str, true)));
+})();
+
+function yearOf(s){var m=(s||"").match(/\d{4}/); return m?m[0]:"0000";}
+
+const typeSel = document.getElementById("typeFilter");
+const seen = new Set();
+DATA.forEach(r=>{ if(r.type) seen.add(r.type); });
+Array.from(seen).sort().forEach(t=>{
+  const o=document.createElement("option"); o.value=t; o.textContent=t;
+  typeSel.appendChild(o);
+});
+
+/* Område = dc.publisher. Listen bygges af de udgivere der faktisk findes i mappen. */
+const omrSel = document.getElementById("omraadeFilter");
+const omrSeen = new Set();
+let udenOmraade = 0;
+DATA.forEach(r=>{ if(r.publisher) omrSeen.add(r.publisher); else udenOmraade++; });
+Array.from(omrSeen).sort((a,b)=>a.localeCompare(b,"da")).forEach(p=>{
+  const o=document.createElement("option"); o.value=p; o.textContent=p;
+  omrSel.appendChild(o);
+});
+if(udenOmraade){
+  const o=document.createElement("option");
+  o.value="__uden__"; o.textContent="(uden udgiver — " + udenOmraade + ")";
+  omrSel.appendChild(o);
+}
+
+function render(){
+  const q = document.getElementById("q").value.trim().toLowerCase();
+  const type = typeSel.value;
+  const omr = omrSel.value;
+  const sortBy = document.getElementById("sortBy").value;
+
+  let rows = DATA.filter(r=>{
+    if(type && r.type!==type) return false;
+    if(omr === "__uden__"){ if(r.publisher) return false; }
+    else if(omr && r.publisher!==omr) return false;
+    if(!q) return true;
+    const hay = (r.title+" "+r.creator+" "+r.subject+" "+r.publisher+" "+
+                 r.coverage+" "+r.description).toLowerCase();
+    return hay.indexOf(q)!==-1;
+  });
+
+  rows = rows.slice().sort((a,b)=>{
+    if(sortBy==="title") return a.title.localeCompare(b.title,"da");
+    if(sortBy==="type") return (a.type||"").localeCompare(b.type||"","da");
+    if(sortBy==="omraade"){
+      const c=(a.publisher||"ÅÅÅ").localeCompare(b.publisher||"ÅÅÅ","da");
+      return c!==0 ? c : a.title.localeCompare(b.title,"da");
+    }
+    const ya=yearOf(a.date), yb=yearOf(b.date);
+    return sortBy==="date-new" ? yb.localeCompare(ya) : ya.localeCompare(yb);
+  });
+
+  const list = document.getElementById("list");
+  list.innerHTML = "";
+  document.getElementById("count").textContent =
+    "Viser " + rows.length + " af " + DATA.length + " poster";
+
+  if(rows.length===0){
+    const p=document.createElement("p");
+    p.className="empty"; p.textContent="Ingen poster matcher søgningen.";
+    list.appendChild(p); return;
+  }
+
+  rows.forEach((r,i)=>{
+    const a=document.createElement("a");
+    a.className="row " + (i%2===0?"row--a":"row--b");
+    a.href=encodeURI(r.filnavn); a.target="_blank"; a.rel="noopener";
+
+    const icon=document.createElement("span");
+    icon.className="icon"; icon.textContent = ICONS[r.type]||"📄";
+    icon.setAttribute("aria-hidden","true");
+
+    const main=document.createElement("span");
+    main.className="col-main";
+    const t=document.createElement("span"); t.className="t"; t.textContent=r.title;
+    const m=document.createElement("span"); m.className="m";
+    m.textContent=[r.creator,r.date,r.publisher].filter(Boolean).join(" · ");
+    const d=document.createElement("span"); d.className="d"; d.textContent=r.description||"";
+    main.appendChild(t); main.appendChild(document.createElement("br"));
+    main.appendChild(m); main.appendChild(d);
+
+    const typ=document.createElement("span");
+    typ.className="col-type"; typ.textContent=r.type||"";
+
+    a.appendChild(icon); a.appendChild(main); a.appendChild(typ);
+    list.appendChild(a);
+  });
+}
+
+document.getElementById("q").addEventListener("input", render);
+omrSel.addEventListener("change", render);
+typeSel.addEventListener("change", render);
+document.getElementById("sortBy").addEventListener("change", render);
+render();
+</script>
+</body>
+</html>

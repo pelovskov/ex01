@@ -1,0 +1,808 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Guide til Dublin Core-metadata</title>
+<meta name="description" content="Interaktiv vejledning til Dublin Core-metadata for frivillige, der registrerer billeder, lyd og tekst i foreningens digitale værktøjer.">
+<meta name="dc.title" content="Guide til Dublin Core-metadata">
+<meta name="dc.type" content="InteractiveResource">
+<meta name="dc.format" content="text/html">
+<meta name="dc.language" content="da">
+<style>
+:root{
+  --ink:#241F1D;
+  --paper:#F4F1EB;
+  --card:#FFFFFF;
+  --bordeaux:#6E1A2B;
+  --bordeaux-dark:#4A101D;
+  --bordeaux-soft:#F3E6E8;
+  --brass:#9A7530;
+  --brass-soft:#F6EEDC;
+  --muted:#6B635E;
+  --line:#DCD4C9;
+  --line-strong:#C4B9AB;
+  --serif:"Iowan Old Style","Palatino Linotype",Palatino,Georgia,"Times New Roman",serif;
+  --sans:-apple-system,BlinkMacSystemFont,"Segoe UI","Helvetica Neue",Arial,sans-serif;
+  --hand:"Bradley Hand","Segoe Script","Snell Roundhand","Brush Script MT",cursive;
+  --radius:6px;
+}
+
+html{font-size:20px;scroll-behavior:smooth;}
+html.tekst-stor{font-size:24px;}
+html.tekst-ekstra{font-size:28px;}
+
+*{box-sizing:border-box;}
+
+body{
+  margin:0;
+  background:var(--paper);
+  color:var(--ink);
+  font-family:var(--sans);
+  font-size:1rem;
+  line-height:1.6;
+  -webkit-text-size-adjust:100%;
+}
+
+.wrap{max-width:56rem;margin:0 auto;padding:0 1.2rem;}
+
+/* ---------- Topbjælke ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;
+  background:var(--bordeaux);
+  color:#fff;
+  border-bottom:3px solid var(--bordeaux-dark);
+}
+.topbar .wrap{
+  display:flex;flex-wrap:wrap;gap:.6rem 1rem;
+  align-items:center;justify-content:space-between;
+  padding-top:.55rem;padding-bottom:.55rem;
+}
+.topbar .brand{
+  font-family:var(--serif);
+  font-size:1.05rem;
+  letter-spacing:.01em;
+}
+.tekstknapper{display:flex;align-items:center;gap:.4rem;}
+.tekstknapper .etiket{
+  font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;
+  opacity:.85;margin-right:.2rem;
+}
+.tekstknapper button{
+  font-family:var(--serif);
+  background:transparent;color:#fff;
+  border:2px solid rgba(255,255,255,.5);
+  border-radius:var(--radius);
+  padding:.15em .7em;
+  cursor:pointer;line-height:1.3;
+}
+.tekstknapper button[aria-pressed="true"]{
+  background:#fff;color:var(--bordeaux-dark);border-color:#fff;font-weight:700;
+}
+.tekstknapper button:nth-child(2){font-size:.85rem;}
+.tekstknapper button:nth-child(3){font-size:1.05rem;}
+.tekstknapper button:nth-child(4){font-size:1.3rem;}
+
+/* ---------- Forsidebillede ---------- */
+.hero{padding:3rem 0 2.4rem;}
+.eyebrow{
+  font-size:.75rem;letter-spacing:.2em;text-transform:uppercase;
+  color:var(--brass);font-weight:700;margin:0 0 .8rem;
+}
+h1{
+  font-family:var(--serif);
+  font-size:2.5rem;line-height:1.12;font-weight:600;
+  margin:0 0 1.2rem;letter-spacing:-.01em;
+}
+.manchet{font-size:1.05rem;color:var(--muted);max-width:34ch;margin:0;}
+
+.albumside{
+  margin:2.4rem 0 0;
+  background:var(--card);
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  box-shadow:0 1px 0 var(--line-strong),0 14px 30px -22px rgba(36,31,29,.5);
+  padding:1.6rem 1.6rem 1.9rem;
+  max-width:30rem;
+}
+.fotoramme{
+  position:relative;
+  aspect-ratio:4/3;
+  background:
+    radial-gradient(120% 90% at 30% 20%, #C9B79E 0%, #A9927A 45%, #7E6A55 100%);
+  border-radius:2px;
+}
+.fotoramme::after{
+  content:"";position:absolute;inset:0;
+  background:linear-gradient(115deg,rgba(255,255,255,.28),rgba(255,255,255,0) 40%);
+}
+.hjoerne{position:absolute;width:1.5rem;height:1.5rem;background:#EDE6DA;z-index:2;}
+.hjoerne.tv{top:-.4rem;left:-.4rem;transform:rotate(45deg);}
+.hjoerne.th{top:-.4rem;right:-.4rem;transform:rotate(45deg);}
+.hjoerne.bv{bottom:-.4rem;left:-.4rem;transform:rotate(45deg);}
+.hjoerne.bh{bottom:-.4rem;right:-.4rem;transform:rotate(45deg);}
+.blyant{
+  font-family:var(--hand);
+  font-size:1.35rem;line-height:1.4;
+  color:#3B3A52;
+  margin:1.4rem 0 0;
+  text-align:center;
+}
+.uden-tekst{
+  margin:1rem 0 0;font-size:.9rem;color:var(--muted);text-align:center;
+}
+.tese{
+  font-family:var(--serif);
+  font-size:1.55rem;line-height:1.35;
+  margin:2.4rem 0 0;max-width:26ch;
+  border-left:4px solid var(--bordeaux);
+  padding-left:1.1rem;
+}
+
+/* ---------- Almindelige sektioner ---------- */
+section{padding:2.6rem 0;}
+section + section{border-top:1px solid var(--line);}
+h2{
+  font-family:var(--serif);
+  font-size:1.85rem;line-height:1.2;font-weight:600;
+  margin:0 0 1.2rem;
+}
+h3{font-family:var(--serif);font-size:1.5rem;line-height:1.25;margin:0 0 .6rem;font-weight:600;}
+p{margin:0 0 1rem;}
+p:last-child{margin-bottom:0;}
+.brodtekst{max-width:42ch;}
+
+ul.punkter{margin:0 0 1rem;padding-left:1.2rem;max-width:44ch;}
+ul.punkter li{margin-bottom:.6rem;}
+
+/* ---------- Feltvælger ---------- */
+.styring{
+  display:flex;flex-wrap:wrap;gap:.8rem;align-items:center;
+  margin-bottom:1.4rem;
+}
+.skifter{
+  display:inline-flex;border:2px solid var(--line-strong);border-radius:var(--radius);
+  overflow:hidden;background:var(--card);
+}
+.skifter button{
+  font-family:var(--sans);font-size:.85rem;
+  background:transparent;border:0;color:var(--ink);
+  padding:.5em 1em;cursor:pointer;
+}
+.skifter button[aria-pressed="true"]{background:var(--bordeaux);color:#fff;font-weight:600;}
+
+.chips{
+  display:flex;flex-wrap:wrap;gap:.5rem;
+  margin:0 0 2rem;padding:0;list-style:none;
+}
+.chips li.skjult{display:none;}
+.chip{
+  display:inline-flex;align-items:baseline;gap:.45em;
+  font-family:var(--sans);font-size:.82rem;
+  background:var(--card);color:var(--ink);
+  border:1px solid var(--line-strong);
+  border-radius:2rem;
+  padding:.42em 1em;cursor:pointer;
+  text-align:left;
+}
+.chip:hover{border-color:var(--bordeaux);}
+.chip[aria-current="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff;font-weight:600;}
+.chip .rang{
+  font-family:var(--serif);font-weight:700;color:var(--brass);
+}
+.chip[aria-current="true"] .rang{color:#F2D9A8;}
+
+/* ---------- Feltkort ---------- */
+.kort{
+  background:var(--card);
+  border:1px solid var(--line);
+  border-top:5px solid var(--bordeaux);
+  border-radius:var(--radius);
+  box-shadow:0 12px 26px -24px rgba(36,31,29,.6);
+  padding:1.8rem 1.8rem 2rem;
+  margin-bottom:1.4rem;
+}
+.kort.auto{border-top-color:var(--line-strong);}
+.kort[hidden]{display:none;}
+.kort-top{
+  display:flex;flex-wrap:wrap;gap:.6rem;align-items:center;
+  justify-content:space-between;margin-bottom:.9rem;
+}
+.dc-kode{
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  font-size:.78rem;letter-spacing:.03em;
+  color:var(--muted);background:var(--paper);
+  border:1px solid var(--line);border-radius:3px;
+  padding:.2em .6em;
+}
+.maerker{display:flex;flex-wrap:wrap;gap:.4rem;}
+.maerke{
+  font-size:.72rem;letter-spacing:.09em;text-transform:uppercase;font-weight:700;
+  border-radius:2rem;padding:.32em .85em;white-space:nowrap;
+}
+.maerke.prio{background:var(--brass-soft);color:#6E5117;border:1px solid #E2CFA3;}
+.maerke.auto{background:#EEEBE5;color:var(--muted);border:1px solid var(--line);}
+.maerke.ekstra{background:#fff;color:var(--muted);border:1px solid var(--line);}
+.kort p{max-width:46ch;}
+
+/* ---------- Eksempel (signaturelementet) ---------- */
+.eksempel{
+  position:relative;
+  margin:1.4rem 0 0;
+  background:var(--paper);
+  border:1px solid var(--line-strong);
+  border-radius:2px;
+  padding:1.5rem 1.6rem 1.3rem;
+}
+.eksempel::before,.eksempel::after{
+  content:"";position:absolute;width:1.1rem;height:1.1rem;
+  background:var(--card);border:1px solid var(--line-strong);
+  transform:rotate(45deg);
+}
+.eksempel::before{top:-.6rem;left:-.6rem;}
+.eksempel::after{bottom:-.6rem;right:-.6rem;}
+.ex-etiket{
+  position:absolute;top:-.72em;left:1.3rem;
+  background:var(--card);
+  font-size:.7rem;letter-spacing:.18em;text-transform:uppercase;font-weight:700;
+  color:var(--bordeaux);padding:0 .6em;
+}
+.ex-tekst{
+  font-family:var(--serif);font-size:1.28rem;line-height:1.45;
+  margin:0;color:var(--bordeaux-dark);
+}
+.ex-tekst + .ex-tekst{margin-top:.9rem;}
+.ex-note{margin:.9rem 0 0;font-size:.85rem;color:var(--muted);}
+.ex-daarlig{color:var(--muted);text-decoration:line-through;text-decoration-thickness:1px;}
+
+.tip{
+  margin:1.3rem 0 0;padding:.9rem 1.1rem;
+  background:var(--bordeaux-soft);
+  border-left:4px solid var(--bordeaux);
+  border-radius:0 var(--radius) var(--radius) 0;
+  font-size:.95rem;max-width:46ch;
+}
+
+dl.typeliste{margin:1.2rem 0 0;max-width:42ch;}
+dl.typeliste dt{font-family:var(--serif);font-size:1.15rem;font-weight:700;margin-top:.7rem;}
+dl.typeliste dd{margin:.1rem 0 0;color:var(--muted);font-size:.92rem;}
+
+/* ---------- Frem/tilbage ---------- */
+.blad{
+  display:flex;gap:.8rem;align-items:center;justify-content:space-between;
+  margin-top:1.6rem;flex-wrap:wrap;
+}
+.bladknap{
+  font-family:var(--sans);font-size:.95rem;font-weight:600;
+  background:var(--card);color:var(--bordeaux);
+  border:2px solid var(--bordeaux);border-radius:var(--radius);
+  padding:.7em 1.3em;cursor:pointer;min-width:11rem;
+}
+.bladknap:hover:not(:disabled){background:var(--bordeaux);color:#fff;}
+.bladknap:disabled{opacity:.35;cursor:default;border-color:var(--line-strong);color:var(--muted);}
+.tael{font-size:.85rem;color:var(--muted);letter-spacing:.05em;}
+
+/* ---------- Prioritetsliste ---------- */
+.trappe{list-style:none;margin:0;padding:0;counter-reset:t;max-width:44rem;}
+.trappe li{
+  counter-increment:t;
+  display:flex;gap:1.1rem;align-items:baseline;
+  background:var(--card);border:1px solid var(--line);
+  border-radius:var(--radius);padding:1.1rem 1.3rem;margin-bottom:.7rem;
+}
+.trappe li::before{
+  content:counter(t);
+  font-family:var(--serif);font-size:1.7rem;font-weight:700;
+  color:var(--brass);line-height:1;min-width:1.4rem;
+}
+.trappe strong{font-family:var(--serif);font-size:1.2rem;}
+.trappe span{display:block;color:var(--muted);font-size:.92rem;margin-top:.15rem;}
+
+ol.oevelse{max-width:44ch;padding-left:1.3rem;}
+ol.oevelse li{margin-bottom:.8rem;}
+.sporgsmal{
+  font-family:var(--serif);font-size:1.45rem;line-height:1.35;
+  color:var(--bordeaux-dark);margin:1.6rem 0 0;max-width:30ch;
+}
+
+footer{
+  border-top:3px solid var(--bordeaux);
+  padding:2rem 0 3rem;font-size:.85rem;color:var(--muted);
+}
+
+a{color:var(--bordeaux);}
+:focus-visible{outline:3px solid var(--brass);outline-offset:2px;}
+
+@media (max-width:640px){
+  html{font-size:19px;}
+  h1{font-size:2rem;}
+  .kort{padding:1.3rem 1.2rem 1.5rem;}
+  .bladknap{min-width:0;flex:1;}
+}
+
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto;}
+  *{transition:none!important;animation:none!important;}
+}
+
+@media print{
+  .topbar,.styring,.chips,.blad{display:none!important;}
+  body{background:#fff;}
+  .kort{break-inside:avoid;box-shadow:none;}
+  .kort[hidden]{display:block!important;}
+}
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <span class="brand">Dublin Core — felt for felt</span>
+    <div class="tekstknapper">
+      <span class="etiket">Skriftstørrelse</span>
+      <button type="button" data-storrelse="normal" aria-pressed="true">A</button>
+      <button type="button" data-storrelse="stor" aria-pressed="false">A</button>
+      <button type="button" data-storrelse="ekstra" aria-pressed="false">A</button>
+    </div>
+  </div>
+</div>
+
+<header class="hero">
+  <div class="wrap">
+    <p class="eyebrow">Vejledning til frivillige</p>
+    <h1>Guide til Dublin&nbsp;Core-metadata</h1>
+    <p class="manchet">Til dig, der registrerer billeder, lydfortællinger eller andet materiale i foreningens digitale værktøjer.</p>
+
+    <div class="albumside">
+      <div class="fotoramme">
+        <span class="hjoerne tv"></span><span class="hjoerne th"></span>
+        <span class="hjoerne bv"></span><span class="hjoerne bh"></span>
+      </div>
+      <p class="blyant">Søs og Frede på besøg i sommerhuset, 1961</p>
+      <p class="uden-tekst">Uden den sætning: et billede af to ukendte mennesker.</p>
+    </div>
+
+    <p class="tese">Metadata er den håndskrevne tekst under billedet.</p>
+  </div>
+</header>
+
+<section>
+  <div class="wrap">
+    <h2>Hvorfor gøre sig besværet?</h2>
+    <div class="brodtekst">
+      <p>Den lille sætning under et gammelt fotografi er guld værd 60 år senere. Metadata gør det samme for det digitale materiale. Når vi udfylder felterne ordentligt:</p>
+      <ul class="punkter">
+        <li>kan <strong>fremtidens brugere</strong> finde ud af hvem, hvad, hvor og hvornår — også når ingen af os er her til at fortælle det</li>
+        <li>kan materialet <strong>søges frem</strong> på tværs af hundredvis af filer, i stedet for at drukne i en mappe</li>
+        <li>bliver arkivet <strong>troværdigt</strong> — man kan se hvor noget stammer fra, og hvem der har rettighederne</li>
+        <li>undgår vi fejlen fra f.eks. gamle cloud-billeder, der har masser af tekniske data (dato, kamera) men intet om <em>hvem</em> eller <em>hvorfor</em></li>
+      </ul>
+      <p>Det tager to minutter ekstra. Det kan være forskellen på, om materialet er brugbart om 50 år — eller bare “en fil, ingen ved noget om”.</p>
+      <p>Dublin Core er ikke noget, vi har opfundet selv. Det er en international, veletableret standard til netop denne slags beskrivelse, så vi genbruger et sprog, arkiver og biblioteker allerede taler.</p>
+    </div>
+  </div>
+</section>
+
+<section id="felter">
+  <div class="wrap">
+    <h2>Felterne, ét ad gangen</h2>
+    <p class="brodtekst">Nogle felter udfylder værktøjet selv. De øvrige er dem, hvor din indsats gør den store forskel. Klik på et felt — eller brug knapperne nederst til at bladre.</p>
+
+    <div class="styring">
+      <div class="skifter" role="group" aria-label="Visning">
+        <button type="button" data-visning="enkelt" aria-pressed="true">Ét felt ad gangen</button>
+        <button type="button" data-visning="alle" aria-pressed="false">Vis alle felter</button>
+      </div>
+      <div class="skifter" role="group" aria-label="Udvalg">
+        <button type="button" data-udvalg="alle" aria-pressed="true">Alle 15 felter</button>
+        <button type="button" data-udvalg="vigtige" aria-pressed="false">★ Kun de vigtigste</button>
+      </div>
+    </div>
+
+    <ul class="chips" id="chips"></ul>
+
+    <div id="kortholder">
+
+      <!-- 1 TITEL -->
+      <article class="kort auto" data-felt="titel" data-prio="1">
+        <div class="kort-top">
+          <span class="dc-kode">dc.title</span>
+          <div class="maerker">
+            <span class="maerke prio">★ Prioritet 1</span>
+            <span class="maerke auto">Udfyldes automatisk</span>
+          </div>
+        </div>
+        <h3>Titel</h3>
+        <p>Udfyldes automatisk fra den titel, du giver optagelsen, billedet eller fortællingen. Gør den gerne konkret.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Interview med Karen Jensen om Sengeløse Metalvarefabrik</p>
+          <p class="ex-note">I stedet for: <span class="ex-daarlig">Interview 3</span></p>
+        </div>
+      </article>
+
+      <!-- 2 OPHAV -->
+      <article class="kort" data-felt="ophav" data-prio="4">
+        <div class="kort-top">
+          <span class="dc-kode">dc.creator</span>
+          <div class="maerker"><span class="maerke prio">★ Prioritet 4</span></div>
+        </div>
+        <h3>Ophav / skaber</h3>
+        <p><strong>Hvem har skabt materialet?</strong> Det kan være fotografen, den der har optaget lyden, eller den der har skrevet teksten. Ikke nødvendigvis den samme som den, der lægger det ind i systemet.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Hans Petersen (fotograf)</p>
+        </div>
+      </article>
+
+      <!-- 3 EMNE -->
+      <article class="kort" data-felt="emne" data-prio="2">
+        <div class="kort-top">
+          <span class="dc-kode">dc.subject</span>
+          <div class="maerker"><span class="maerke prio">★ Prioritet 2</span></div>
+        </div>
+        <h3>Emne / nøgleord</h3>
+        <p>Stikord, der beskriver <strong>hvad materialet handler om</strong>. Adskil med semikolon, så man kan søge på hvert ord for sig.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Sengeløse; metalindustri; 1950'erne; erhvervsliv</p>
+        </div>
+        <p class="tip">Dette er et af de vigtigste felter at bruge tid på — det er det, folk søger på om 10 år.</p>
+      </article>
+
+      <!-- 4 BESKRIVELSE -->
+      <article class="kort auto" data-felt="beskrivelse" data-prio="1">
+        <div class="kort-top">
+          <span class="dc-kode">dc.description</span>
+          <div class="maerker">
+            <span class="maerke prio">★ Prioritet 1</span>
+            <span class="maerke auto">Udfyldes automatisk</span>
+          </div>
+        </div>
+        <h3>Beskrivelse</h3>
+        <p>Udfyldes automatisk fra den beskrivelse, du skriver i værktøjet. Skriv gerne lidt mere end det mest nødvendige — hvem er med, hvad sker der, hvorfor er det interessant.</p>
+      </article>
+
+      <!-- 5 UDGIVER -->
+      <article class="kort" data-felt="udgiver" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.publisher</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Udgiver</h3>
+        <p><strong>Hvem står bag udgivelsen?</strong> Typisk foreningens navn eller arkivets navn — samme værdi hver gang, så det kan sættes op én gang for alle.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Syd for Banen — Lokalhistorisk Forening</p>
+        </div>
+      </article>
+
+      <!-- 6 BIDRAGYDER -->
+      <article class="kort" data-felt="bidragyder" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.contributor</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Bidragyder</h3>
+        <p>Adskiller sig fra “ophav” ved at være den, der har <strong>hjulpet med at skabe eller redigere</strong> materialet — fx den, der har interviewet, transskriberet, redigeret lyd eller registreret optagelsen i systemet.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Interviewet af Anne Sørensen; registreret af Peter Nielsen</p>
+        </div>
+      </article>
+
+      <!-- 7 DATO -->
+      <article class="kort" data-felt="dato" data-prio="3">
+        <div class="kort-top">
+          <span class="dc-kode">dc.date</span>
+          <div class="maerker"><span class="maerke prio">★ Prioritet 3</span></div>
+        </div>
+        <h3>Dato</h3>
+        <p>Datoen for <strong>selve begivenheden eller optagelsen</strong> — ikke datoen for, hvornår du lægger det ind i systemet. Skriv helst ÅÅÅÅ-MM-DD.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempler</span>
+          <p class="ex-tekst">1961-06-14</p>
+          <p class="ex-tekst">ca. 1955</p>
+          <p class="ex-note">Et løst skøn er helt i orden.</p>
+        </div>
+        <p class="tip">Bedre en usikker dato end ingen dato.</p>
+      </article>
+
+      <!-- 8 TYPE -->
+      <article class="kort" data-felt="type" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.type</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Type</h3>
+        <p>Hvilken <strong>slags</strong> materiale er det — valgt fra en fast liste:</p>
+        <dl class="typeliste">
+          <dt>Sound</dt><dd>lydoptagelse</dd>
+          <dt>Image</dt><dd>billede</dd>
+          <dt>Text</dt><dd>tekstdokument</dd>
+          <dt>InteractiveResource</dt><dd>interaktivt materiale, fx en app eller quiz</dd>
+          <dt>Collection</dt><dd>en samling af flere ting</dd>
+          <dt>Event</dt><dd>en begivenhed</dd>
+        </dl>
+        <p class="tip">Passer ingen af dem, må feltet gerne stå tomt.</p>
+      </article>
+
+      <!-- 9 FORMAT -->
+      <article class="kort" data-felt="format" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.format</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Format</h3>
+        <p>Filens <strong>tekniske format</strong>. Ofte noget værktøjet selv kan udfylde, men godt at kende betydningen af.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempler</span>
+          <p class="ex-tekst">mp3 · jpg · html</p>
+        </div>
+      </article>
+
+      <!-- 10 IDENTIFIKATOR -->
+      <article class="kort" data-felt="identifikator" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.identifier</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Identifikator</h3>
+        <p>Et <strong>entydigt “navn”</strong> for netop dette materiale — et arkivnummer, en URL eller lignende. Gør det muligt at henvise præcist til denne ene fil blandt mange.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">SFB-lyd-0142</p>
+        </div>
+      </article>
+
+      <!-- 11 KILDE -->
+      <article class="kort" data-felt="kilde" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.source</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Kilde</h3>
+        <p><strong>Hvor stammer materialet fra</strong>, hvis det ikke er skabt fra bunden i vores forening — fx en donation, et andet arkiv eller en avis.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Doneret af familien Rasmussen, 2024</p>
+        </div>
+      </article>
+
+      <!-- 12 SPROG -->
+      <article class="kort" data-felt="sprog" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.language</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Sprog</h3>
+        <p>Sprogkode for materialets sprog — for os næsten altid dansk.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">da</p>
+        </div>
+      </article>
+
+      <!-- 13 RELATION -->
+      <article class="kort" data-felt="relation" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.relation</span>
+          <div class="maerker"><span class="maerke ekstra">Godt at have med</span></div>
+        </div>
+        <h3>Relation</h3>
+        <p>Henviser til <strong>beslægtet materiale</strong> — fx et billedalbum, der hører sammen med en lydfortælling, eller en anden del af samme interview.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">Se tilhørende billedalbum: SFB-album-0012</p>
+        </div>
+      </article>
+
+      <!-- 14 DÆKNING -->
+      <article class="kort auto" data-felt="daekning" data-prio="0">
+        <div class="kort-top">
+          <span class="dc-kode">dc.coverage</span>
+          <div class="maerker"><span class="maerke auto">Udfyldes automatisk</span></div>
+        </div>
+        <h3>Dækning</h3>
+        <p>Udfyldes automatisk fra det sted, du angiver. Beskriver <strong>sted og/eller periode</strong>, materialet handler om — ikke nødvendigvis der, hvor optagelsen fandt sted, men det, den <em>handler om</em>.</p>
+      </article>
+
+      <!-- 15 RETTIGHEDER -->
+      <article class="kort" data-felt="rettigheder" data-prio="5">
+        <div class="kort-top">
+          <span class="dc-kode">dc.rights</span>
+          <div class="maerker"><span class="maerke prio">★ Prioritet 5</span></div>
+        </div>
+        <h3>Rettigheder</h3>
+        <p><strong>Ophavsret og vilkår for brug.</strong> Vigtigt at få med, selv i simpel form — det fortæller fremtidige brugere, om de må dele, redigere eller bruge materialet frit.</p>
+        <div class="eksempel">
+          <span class="ex-etiket">Eksempel</span>
+          <p class="ex-tekst">© Syd for Banen. Må frit bruges til ikke-kommercielle, lokalhistoriske formål.</p>
+        </div>
+      </article>
+
+    </div>
+
+    <div class="blad" id="blad">
+      <button type="button" class="bladknap" id="forrige">← Forrige felt</button>
+      <span class="tael" id="tael"></span>
+      <button type="button" class="bladknap" id="naeste">Næste felt →</button>
+    </div>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Hvis tiden er knap</h2>
+    <p class="brodtekst">Kan man ikke nå det hele, så prioriter i denne rækkefølge:</p>
+    <ol class="trappe">
+      <li><div><strong>Titel og beskrivelse</strong><span>Ofte automatiske — men gør dem gode.</span></div></li>
+      <li><div><strong>Emne / nøgleord</strong><span>Afgørende for at kunne finde materialet igen.</span></div></li>
+      <li><div><strong>Dato</strong><span>Selv et løst skøn er bedre end intet.</span></div></li>
+      <li><div><strong>Ophav</strong><span>Hvem har skabt det.</span></div></li>
+      <li><div><strong>Rettigheder</strong><span>Så fremtidige brugere ved, hvad de må.</span></div></li>
+    </ol>
+    <p class="brodtekst" style="margin-top:1.2rem;">De øvrige felter er kærkomne, men ikke afgørende, hvis tiden er knap.</p>
+  </div>
+</section>
+
+<section>
+  <div class="wrap">
+    <h2>Til undervisningsbrug</h2>
+    <p class="brodtekst">Et godt øvelsesforløb for nye frivillige:</p>
+    <ol class="oevelse">
+      <li>Tag ét konkret billede eller én lydfil, alle kender — fx noget fra foreningens eget arkiv.</li>
+      <li>Lad hver deltager selv udfylde felterne for netop dette materiale.</li>
+      <li>Sammenlign resultaterne i plenum. Der er sjældent kun ét rigtigt svar, men det viser, hvor forskelligt man tænker om samme materiale.</li>
+      <li>Rund af med spørgsmålet nedenfor.</li>
+    </ol>
+    <p class="sporgsmal">“Hvis du fandt denne fil om 50 år uden at kende noget til den — hvad ville du ønske, der stod i metadata?”</p>
+    <p class="brodtekst" style="margin-top:1.4rem;">Det plejer at gøre felterne “emne/nøgleord” og “rettigheder” langt mere nærværende end en tør gennemgang af listen.</p>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <p>Guide til Dublin Core-metadata · Interaktiv udgave · Én selvstændig HTML-fil, der virker uden internet.</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  "use strict";
+
+  var korthold = document.getElementById('kortholder');
+  var kort = Array.prototype.slice.call(korthold.querySelectorAll('.kort'));
+  var chipsListe = document.getElementById('chips');
+  var blad = document.getElementById('blad');
+  var forrigeKnap = document.getElementById('forrige');
+  var naesteKnap = document.getElementById('naeste');
+  var taeller = document.getElementById('tael');
+
+  var visning = 'enkelt';
+  var udvalg = 'alle';
+  var aktiv = 0;
+
+  /* Byg feltknapper ud fra kortene, så listen aldrig kan komme ud af trit */
+  kort.forEach(function(k, i){
+    var navn = k.querySelector('h3').textContent;
+    var prio = parseInt(k.getAttribute('data-prio'), 10);
+    var li = document.createElement('li');
+    var knap = document.createElement('button');
+    knap.type = 'button';
+    knap.className = 'chip';
+    knap.setAttribute('data-index', i);
+    knap.innerHTML = (prio > 0 ? '<span class="rang">★' + prio + '</span>' : '') +
+                     '<span>' + navn + '</span>';
+    knap.addEventListener('click', function(){
+      aktiv = i;
+      if (visning === 'alle') { visning = 'enkelt'; saetVisningsknapper(); }
+      tegn();
+      k.scrollIntoView({block:'start'});
+    });
+    li.appendChild(knap);
+    li.setAttribute('data-prio', prio);
+    chipsListe.appendChild(li);
+  });
+
+  var chipKnapper = Array.prototype.slice.call(chipsListe.querySelectorAll('.chip'));
+  var chipPunkter = Array.prototype.slice.call(chipsListe.querySelectorAll('li'));
+
+  function synlige(){
+    var liste = [];
+    kort.forEach(function(k, i){
+      if (udvalg === 'alle' || parseInt(k.getAttribute('data-prio'),10) > 0) liste.push(i);
+    });
+    return liste;
+  }
+
+  function tegn(){
+    var vis = synlige();
+    if (vis.indexOf(aktiv) === -1) aktiv = vis[0];
+
+    kort.forEach(function(k, i){
+      var med = vis.indexOf(i) !== -1;
+      k.hidden = !(med && (visning === 'alle' || i === aktiv));
+    });
+
+    chipPunkter.forEach(function(li, i){
+      li.classList.toggle('skjult', vis.indexOf(i) === -1);
+    });
+    chipKnapper.forEach(function(b, i){
+      b.setAttribute('aria-current', (visning === 'enkelt' && i === aktiv) ? 'true' : 'false');
+    });
+
+    blad.style.display = (visning === 'enkelt') ? 'flex' : 'none';
+    var plads = vis.indexOf(aktiv);
+    forrigeKnap.disabled = plads <= 0;
+    naesteKnap.disabled = plads >= vis.length - 1;
+    taeller.textContent = 'Felt ' + (plads + 1) + ' af ' + vis.length;
+  }
+
+  function flyt(retning){
+    var vis = synlige();
+    var plads = vis.indexOf(aktiv) + retning;
+    if (plads < 0 || plads >= vis.length) return;
+    aktiv = vis[plads];
+    tegn();
+    kort[aktiv].scrollIntoView({block:'nearest'});
+  }
+
+  forrigeKnap.addEventListener('click', function(){ flyt(-1); });
+  naesteKnap.addEventListener('click', function(){ flyt(1); });
+
+  document.addEventListener('keydown', function(e){
+    if (visning !== 'enkelt') return;
+    var t = e.target.tagName;
+    if (t === 'INPUT' || t === 'TEXTAREA') return;
+    if (e.key === 'ArrowRight') { flyt(1); }
+    if (e.key === 'ArrowLeft')  { flyt(-1); }
+  });
+
+  /* Visning: ét felt / alle felter */
+  var visningsknapper = document.querySelectorAll('[data-visning]');
+  function saetVisningsknapper(){
+    visningsknapper.forEach(function(b){
+      b.setAttribute('aria-pressed', b.getAttribute('data-visning') === visning ? 'true' : 'false');
+    });
+  }
+  visningsknapper.forEach(function(b){
+    b.addEventListener('click', function(){
+      visning = b.getAttribute('data-visning');
+      saetVisningsknapper();
+      tegn();
+    });
+  });
+
+  /* Udvalg: alle felter / kun de vigtigste */
+  var udvalgsknapper = document.querySelectorAll('[data-udvalg]');
+  udvalgsknapper.forEach(function(b){
+    b.addEventListener('click', function(){
+      udvalg = b.getAttribute('data-udvalg');
+      udvalgsknapper.forEach(function(x){
+        x.setAttribute('aria-pressed', x.getAttribute('data-udvalg') === udvalg ? 'true' : 'false');
+      });
+      tegn();
+    });
+  });
+
+  /* Skriftstørrelse */
+  var storrelsesknapper = document.querySelectorAll('[data-storrelse]');
+  storrelsesknapper.forEach(function(b){
+    b.addEventListener('click', function(){
+      var v = b.getAttribute('data-storrelse');
+      document.documentElement.classList.remove('tekst-stor','tekst-ekstra');
+      if (v === 'stor') document.documentElement.classList.add('tekst-stor');
+      if (v === 'ekstra') document.documentElement.classList.add('tekst-ekstra');
+      storrelsesknapper.forEach(function(x){
+        x.setAttribute('aria-pressed', x === b ? 'true' : 'false');
+      });
+    });
+  });
+
+  tegn();
+})();
+</script>
+
+</body>
+</html>
