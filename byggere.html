@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="da">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Værktøjerne, der laver historierne — Syd for Banen</title>
+
+<!-- ===================================================================
+     RET DISSE TO TING FØR DU LÆGGER SIDEN OP:
+     1) href="dashboard.html" nedenfor (to steder) → din rigtige sti til
+        dashboardet med byggere og vejledninger.
+     2) Kontaktlinjen i bunden.
+     Ingen webfonte, ingen scripts udefra: siden virker også offline.
+     Samme stilark og samme A / A+ / A++ som startsiden og søgesiden.
+     Version 2 — september 2026: Vejledningsbygger og PWA-bygger tilføjet.
+     =================================================================== -->
+
+<meta name="description" content="De syv historiebyggere: små HTML-værktøjer der laver e-bøger, lydfortællinger, billedalbums, enkeltbilleder, vejledninger og samlinger som selvstændige filer.">
+<meta name="dc.title" content="Værktøjerne, der laver historierne">
+<meta name="dc.creator" content="Poul Erik Løvskov">
+<meta name="dc.subject" content="Syd for Banen; lokalhistorie; Roskilde; digital formidling; værktøjer; vejledninger; langtidsholdbarhed">
+<meta name="dc.description" content="Introduktion til historiebyggerne — Bogbygger, Lydfortælling, Albumbygger, Piwigo Albumbygger, Enkeltbillede, Vejledningsbygger og PWA-bygger — der hver laver selvstændige HTML-filer.">
+<meta name="dc.publisher" content="Syd for Banen — Lokalhistorisk Forening">
+<meta name="dc.date" content="2026-09-05">
+<meta name="dc.type" content="Text">
+<meta name="dc.format" content="text/html">
+<meta name="dc.language" content="da">
+<meta name="dc.rights" content="Må frit bruges til lokalhistoriske formål.">
+
+<style>
+  /* Alt er i rem, så A / A+ / A++ skalerer hele siden på én gang. */
+  html{font-size:100%;-webkit-text-size-adjust:100%}
+  html[data-tekst="stor"]{font-size:112.5%}
+  html[data-tekst="storst"]{font-size:125%}
+
+  :root{
+    --papir:#faf6ef;
+    --papir-dyb:#f2e7ea;
+    --blæk:#1d1b1a;        /* 15,8:1 mod papir */
+    --blæk-svag:#4a443f;   /*  8,7:1 mod papir */
+    --bordeaux:#73202f;    /* 10,0:1 mod papir */
+    --bordeaux-lys:#8f2f42;
+    --streg:#d3c7bb;
+
+    --serif: "Iowan Old Style", "Palatino Linotype", Palatino, Georgia, "Times New Roman", serif;
+    --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Courier New", monospace;
+  }
+  @media (prefers-contrast:more){
+    :root{--blæk:#000;--blæk-svag:#2b2724;--bordeaux:#5e1a26;--streg:#8d8378}
+  }
+
+  *{box-sizing:border-box}
+
+  body{
+    margin:0;
+    background:var(--papir);
+    color:var(--blæk);
+    font-family:var(--serif);
+    font-size:1.3rem;
+    line-height:1.65;
+  }
+
+  a:focus-visible,
+  button:focus-visible,
+  summary:focus-visible{
+    outline:3px solid var(--bordeaux);
+    outline-offset:3px;
+    border-radius:2px;
+  }
+
+  .ramme{max-width:46rem;margin:0 auto;padding:0 1.5rem 4rem}
+
+  .etiket{
+    font-family:var(--mono);
+    font-size:1.05rem;
+    letter-spacing:.08em;
+    text-transform:uppercase;
+    color:var(--bordeaux);
+    margin:0 0 1rem;
+  }
+
+  /* ---- tekststørrelse ---- */
+  .tekststr{
+    display:flex;align-items:center;gap:.5rem;
+    padding:1.4rem 0 0;flex-wrap:wrap;
+  }
+  .tekststr .lbl{font-family:var(--mono);font-size:.95rem;color:var(--blæk-svag)}
+  .tekststr button{
+    font-family:var(--serif);background:#fff;color:var(--blæk);
+    border:2px solid var(--streg);border-radius:6px;
+    min-width:48px;min-height:48px;padding:0 .6rem;cursor:pointer;line-height:1;
+  }
+  .tekststr button:nth-of-type(1){font-size:1rem}
+  .tekststr button:nth-of-type(2){font-size:1.25rem}
+  .tekststr button:nth-of-type(3){font-size:1.5rem}
+  .tekststr button:hover{border-color:var(--bordeaux)}
+  .tekststr button[aria-pressed="true"]{background:var(--bordeaux);border-color:var(--bordeaux);color:#fff}
+
+  /* ---- hero ---- */
+  .hero{padding:2.2rem 0 2.5rem}
+  .hero h1{
+    font-size:clamp(2.3rem, 7vw, 3.1rem);
+    line-height:1.15;font-weight:600;margin:0 0 1.1rem;
+  }
+  .manchet{font-size:1.35rem;color:var(--blæk-svag);margin:0 0 2.2rem;max-width:32rem}
+
+  .knap{
+    display:inline-block;background:var(--bordeaux);color:#fff;text-decoration:none;
+    font-size:1.3rem;line-height:1.3;padding:1rem 1.9rem;min-height:48px;
+    border-radius:3px;border:2px solid var(--bordeaux);transition:background .15s ease;
+  }
+  .knap:hover{background:var(--bordeaux-lys);border-color:var(--bordeaux-lys)}
+  .knap:focus-visible{outline:3px solid var(--blæk);outline-offset:3px}
+
+  .knap-note{font-family:var(--mono);font-size:1.05rem;line-height:1.6;color:var(--blæk-svag);margin:1rem 0 0}
+
+  /* ---- afsnit ---- */
+  .afsnit{border-top:1px solid var(--streg);padding:2.8rem 0 0}
+  .afsnit h2{font-size:1.8rem;font-weight:600;margin:0 0 1.1rem;line-height:1.3}
+  .afsnit p{margin:0 0 1.2rem;max-width:32rem}
+  .afsnit p:last-child{margin-bottom:2.8rem}
+
+  /* ---- de fem byggere: mærkatet fortæller, hvad filen bliver til ---- */
+  .byggere{list-style:none;margin:0 0 2.8rem;padding:0}
+  .byggere li{
+    display:flex;gap:1.2rem;
+    padding:1.3rem 0;border-bottom:1px solid var(--streg);
+  }
+  .byggere .type{
+    font-family:var(--mono);font-size:.95rem;letter-spacing:.07em;
+    text-transform:uppercase;color:var(--bordeaux);
+    flex:0 0 6.5rem;padding-top:.45rem;
+  }
+  .byggere strong{font-weight:600;display:block;margin-bottom:.25rem}
+  .byggere .txt{color:var(--blæk-svag);font-size:1.15rem;display:block;max-width:30rem}
+  .etiket.mellem{margin:2.4rem 0 1rem}
+
+  /* ---- det samme i dem alle ---- */
+  .punkter{list-style:none;margin:0 0 2.8rem;padding:0}
+  .punkter li{
+    display:flex;gap:1rem;align-items:baseline;
+    padding:.6rem 0;color:var(--blæk-svag);font-size:1.15rem;
+  }
+  .punkter li::before{
+    content:"—";font-family:var(--mono);color:var(--bordeaux);flex:0 0 1rem;
+  }
+  .punkter b{color:var(--blæk);font-weight:600}
+
+  /* ---- de fire trin: rækkefølgen betyder noget ---- */
+  .trin{list-style:none;margin:0 0 2.8rem;padding:0;counter-reset:t}
+  .trin li{
+    counter-increment:t;display:flex;gap:1.2rem;
+    padding:1.1rem 0;border-bottom:1px solid var(--streg);
+  }
+  .trin li::before{
+    content:counter(t);font-family:var(--mono);font-size:1.2rem;
+    color:var(--bordeaux);padding-top:.2rem;flex:0 0 1.4rem;
+  }
+  .trin strong{font-weight:600;display:block;margin-bottom:.2rem}
+  .trin span{color:var(--blæk-svag);font-size:1.15rem;display:block}
+
+  /* ---- signaturen: sedlen på filen ---- */
+  .seddel{
+    background:var(--papir-dyb);border:1px solid var(--streg);
+    border-left:5px solid var(--bordeaux);padding:1.2rem 1.5rem 1.5rem;margin:0 0 2.8rem;
+  }
+  .seddel summary{
+    font-family:var(--mono);font-size:1.15rem;line-height:1.4;
+    color:var(--bordeaux);cursor:pointer;padding:.6rem 0;min-height:44px;
+    display:flex;align-items:center;
+  }
+  .seddel dl{font-family:var(--mono);font-size:1.05rem;line-height:1.65;margin:1rem 0 0;color:var(--blæk)}
+  .seddel dt{color:var(--bordeaux);margin-top:1rem}
+  .seddel dd{margin:0}
+  .seddel .haand{font-family:var(--serif);font-style:italic;font-size:1.2rem;color:var(--blæk-svag);margin:1.6rem 0 0}
+
+  .slut{
+    font-size:1.3rem;font-style:italic;color:var(--blæk-svag);
+    border-left:5px solid var(--bordeaux);padding-left:1.3rem;margin:0 0 2.8rem;
+  }
+
+  footer{
+    border-top:1px solid var(--streg);padding-top:1.8rem;
+    font-family:var(--mono);font-size:1.05rem;line-height:1.9;color:var(--blæk-svag);
+  }
+  footer a{color:var(--bordeaux);display:inline-block;padding:.2rem 0}
+
+  /* ---- telefon: teksten bliver ikke mindre, kun rammen ---- */
+  @media (max-width:600px){
+    body{font-size:1.25rem}
+    .ramme{padding:0 1.2rem 3.5rem}
+    .hero{padding:1.8rem 0 2.2rem}
+    .knap{display:block;text-align:center;padding:1.1rem 1.2rem}
+    .manchet{font-size:1.3rem}
+    .trin li{gap:.9rem}
+    .byggere li{display:block}
+    .byggere .type{padding-top:0;margin-bottom:.4rem}
+    .seddel{padding:1.1rem 1.2rem 1.3rem}
+    .seddel dl{font-size:1rem;word-break:break-word}
+  }
+
+  @media (prefers-reduced-motion:reduce){*{transition:none !important}}
+
+  @media print{
+    body{background:#fff;color:#000}
+    .knap{border:1px solid #000;color:#000;background:#fff}
+    .tekststr{display:none}
+  }
+</style>
+</head>
+<body>
+<main class="ramme">
+
+  <div class="tekststr" role="group" aria-label="Tekststørrelse">
+    <span class="lbl" aria-hidden="true">Tekst</span>
+    <button type="button" data-str="normal" aria-pressed="true" aria-label="Normal tekststørrelse">A</button>
+    <button type="button" data-str="stor" aria-pressed="false" aria-label="Større tekst">A+</button>
+    <button type="button" data-str="storst" aria-pressed="false" aria-label="Størst tekst">A++</button>
+  </div>
+
+  <header class="hero">
+    <p class="etiket">Syd for Banen · Lokalhistorisk Forening</p>
+    <h1>Værktøjerne, der laver historierne</h1>
+    <p class="manchet">
+      Syv små byggere til bøger, lyd, billeder, vejledninger og samlinger. Du
+      udfylder felterne, og byggeren samler det hele til én fil, du henter ned.
+      Ingen konto, ingen installation — og dine billeder forlader aldrig din
+      egen maskine.
+    </p>
+    <a class="knap" href="lokahhist-dashboard.html">Åbn dashboardet med byggerne</a>
+    <p class="knap-note">Byggere · vejledninger · eksempler</p>
+  </header>
+
+  <section class="afsnit">
+    <p class="etiket">Værktøjskassen</p>
+    <h2>Syv byggere — én til hver slags stof</h2>
+    <p>
+      De fem første laver historierne. De to sidste kom til senere: den ene
+      forklarer, hvordan man bruger de andre, og den anden binder de færdige
+      filer sammen til noget, man kan lægge på hjemmeskærmen.
+    </p>
+    <ul class="byggere">
+      <li>
+        <span class="type">Tekst</span>
+        <div><strong>Bogbygger</strong>
+        <span class="txt">Til det, der skal læses. Du giver den en titel, et forsidebillede og din tekst
+        og får en lille bog tilbage: en indholdsfortegnelse hentet ud af dine egne overskrifter, en rolig
+        navigation i bunden, der bladrer en skærmfuld ad gangen, og knapper til skriftstørrelse og til lyst,
+        sepia eller mørkt tema. Bogen husker selv, hvor langt læseren er nået.</span></div>
+      </li>
+      <li>
+        <span class="type">Lyd</span>
+        <div><strong>Lydfortælling</strong>
+        <span class="txt">Til det, der skal høres. Et billede, en overskrift og en kort tekst — og en stor,
+        tydelig afspiller med start og pause og en bjælke, der viser, hvor langt man er nået. Hele teksten kan
+        ligge i en fane, der foldes ud: et resumé eller den fulde transskription, for dem der hellere vil læse
+        med. Afspilleren husker, hvor lytteren slap.</span></div>
+      </li>
+      <li>
+        <span class="type">Billeder</span>
+        <div><strong>Albumbygger</strong>
+        <span class="txt">Til billederne på din egen computer eller telefon. Du vælger dem, giver hvert billede
+        et navn og en beskrivelse og flytter rundt på dem, til rækkefølgen er rigtig. I albummet vises de som
+        små billeder; klikker man på ét, folder det sig ud i stort format på sort baggrund med frem, tilbage
+        og luk.</span></div>
+      </li>
+      <li>
+        <span class="type">Billeder</span>
+        <div><strong>Piwigo Albumbygger</strong>
+        <span class="txt">Det samme album, men billeder og tekster hentes fra et album i det eksisterende
+        Piwigo-galleri i stedet for fra din egen enhed. Derfra arbejder du videre på nøjagtig samme måde.</span></div>
+      </li>
+      <li>
+        <span class="type">Ét billede</span>
+        <div><strong>Enkeltbillede</strong>
+        <span class="txt">Til det billede, der fortjener det hele. De andre byggere komprimerer billederne,
+        så filen ikke bliver for tung — her gøres det modsatte: billedet lægges ind i fuld opløsning, så man
+        kan zoome ind på ansigtet i baggrunden eller skiltet på hjørnet. Kameraets egne oplysninger (Exif)
+        kan vises, og billedet kan hentes ud igen som billedfil.</span></div>
+      </li>
+    </ul>
+
+    <p class="etiket mellem">Og to, der binder det hele sammen</p>
+    <ul class="byggere">
+      <li>
+        <span class="type">Vejledning</span>
+        <div><strong>Vejledningsbygger</strong>
+        <span class="txt">Til det, der skal forklares. Et skærmbillede og et par linjer ad gangen, sat op
+        som nummererede trin: sådan gør du. Billedet kan sættes direkte ind fra skærmklipperen, og hvert trin
+        kan være et billede, en video eller bare tekst. Den færdige vejledning kan læses på skærmen eller
+        printes — eller gemmes som PDF, hvis den skal ligge ved siden af kaffekoppen. Den er lidt friere i
+        formen end de andre, for den skal også kunne bruges til noget, der ikke er lokalhistorie.</span></div>
+      </li>
+      <li>
+        <span class="type">Samling</span>
+        <div><strong>PWA-bygger</strong>
+        <span class="txt">Til det, der skal samles. Du peger på de færdige filer — et album, tre
+        lydfortællinger, en lille bog — og giver hver sin knap og en linje om, hvad den er. Ud kommer en
+        forside, der binder dem sammen. Den kan lægges på hjemmeskærmen på en telefon eller en tablet og
+        opfører sig derefter som en app: eget ikon, eget navn, og den virker, selvom der ikke er internet.
+        Det er den eneste af byggerne, der ikke afleverer én fil, men en lille håndfuld, der skal ligge
+        i samme mappe.</span></div>
+      </li>
+    </ul>
+  </section>
+
+  <section class="afsnit">
+    <p class="etiket">Ensartet layout</p>
+    <h2>Lærer du én bygger, kan du dem alle</h2>
+    <p>
+      Byggerne er lavet efter den samme skabelon. Felterne står i samme rækkefølge,
+      knapperne hedder det samme, og det, der virker i den ene, virker på samme måde
+      i den næste. Det, der går igen:
+    </p>
+    <ul class="punkter">
+      <li><span><b>Titel, billede og en kort beskrivelse</b> i toppen — samme sted hver gang.</span></li>
+      <li><span><b>Alle 15 Dublin Core-felter</b> i en fane, der kan foldes ud.</span></li>
+      <li><span><b>En knap videre</b>, hvis læseren skal sendes hen til en anden fil eller side.</span></li>
+      <li><span><b>Tre temaer</b> at vælge imellem: Oprindeligt, Røde Kors og Lokalhistorisk.</span></li>
+      <li><span><b>Én færdig HTML-fil</b> til download — billeder, lyd og tekst ligger inde i selve filen.</span></li>
+      <li><span><b>Åbn en færdig fil igen</b> i byggeren, ret i den, og gem den på ny.</span></li>
+    </ul>
+    <p>
+      De to nyeste falder lidt uden for på hver sin måde. Vejledningsbyggeren har
+      sine egne farver og sin egen opstilling, fordi en vejledning ikke skal ligne
+      en lokalhistorisk fortælling. Og PWA-byggeren afleverer som nævnt flere filer,
+      fordi telefonen skal bruge dem for at kunne lægge forsiden på hjemmeskærmen.
+      Resten — felterne, sedlen med oplysninger og den færdige fil, der klarer sig
+      selv — er det samme.
+    </p>
+  </section>
+
+  <section class="afsnit">
+    <p class="etiket">Sådan gør du</p>
+    <h2>Fem skridt — og det sidste er valgfrit</h2>
+    <ol class="trin">
+      <li>
+        <div><strong>Vælg byggeren, der passer til stoffet</strong>
+        <span>Tekst, lyd, et album, det ene store billede — eller en vejledning, hvis det er en fremgangsmåde, der skal beskrives.</span></div>
+      </li>
+      <li>
+        <div><strong>Udfyld felterne</strong>
+        <span>Titel, billede, tekst — og sedlen med oplysninger om, hvad filen er, og hvem der har lavet den.</span></div>
+      </li>
+      <li>
+        <div><strong>Kig med undervejs</strong>
+        <span>Ved siden af felterne står den færdige fil og opdaterer sig selv, mens du skriver. Der er ingen overraskelser til sidst.</span></div>
+      </li>
+      <li>
+        <div><strong>Hent filen</strong>
+        <span>Den er færdig i samme øjeblik, du gemmer den. Læg den på hjemmesiden, på en USB-nøgle, eller send den til nogen.</span></div>
+      </li>
+      <li>
+        <div><strong>Saml dem, hvis de hører sammen</strong>
+        <span>Hører flere filer til den samme byvandring, gade eller familie, kan PWA-byggeren give dem en fælles forside — og et sted på hjemmeskærmen.</span></div>
+      </li>
+    </ol>
+    <p>
+      Byggerne kører i browseren på din egen maskine. Der er ingen server at sende
+      billeder og lyd op til, og der bliver ikke oprettet nogen konto. Ligger byggeren
+      på en USB-nøgle, kan du sidde ved køkkenbordet og arbejde uden internet.
+    </p>
+  </section>
+
+  <section class="afsnit">
+    <p class="etiket">Konteksten følger med</p>
+    <h2>Filen skal selv kunne fortælle, hvad den er</h2>
+    <p>
+      I farmors fotoalbum stod der med håndskrift under billederne: <em>“Søs og
+      Frede i sommerhuset, 1961.”</em> Uden den sætning er billedet bare to ukendte
+      mennesker. Et digitalt billede kender sin ISO-værdi og sine GPS-koordinater,
+      men ikke hvem der er på det, eller hvorfor nogen gemte det.
+    </p>
+    <p>
+      Derfor spørger hver bygger om lidt mere end titlen: hvem der har skabt det,
+      hvornår det foregik, hvad det handler om, og hvad man må med det. Oplysningerne
+      skrives ind i filen selv. Det er den samme standard, biblioteker og arkiver
+      bruger, og det er den, det lokalhistoriske søgeindeks søger i. Den følger med
+      filen — også om 50 år, hvor ingen længere kan spørge os.
+    </p>
+
+    <details class="seddel">
+      <summary>Vis sedlen på denne side</summary>
+      <dl>
+        <dt>Titel</dt><dd>Værktøjerne, der laver historierne</dd>
+        <dt>Ophav</dt><dd>Poul Erik Løvskov</dd>
+        <dt>Udgiver</dt><dd>Syd for Banen — Lokalhistorisk Forening</dd>
+        <dt>Dato</dt><dd>2026-09-05</dd>
+        <dt>Emne</dt><dd>Syd for Banen; lokalhistorie; Roskilde; digital formidling; værktøjer; vejledninger; langtidsholdbarhed</dd>
+        <dt>Type</dt><dd>Text</dd>
+        <dt>Sprog</dt><dd>da</dd>
+        <dt>Rettigheder</dt><dd>Må frit bruges til lokalhistoriske formål.</dd>
+      </dl>
+      <p class="haand">Sådan en seddel sætter byggerne på hver eneste fil, de laver.</p>
+    </details>
+  </section>
+
+  <section class="afsnit">
+    <p class="etiket">Kom i gang</p>
+    <h2>Byggerne står på dashboardet</h2>
+    <p>
+      På dashboardet ligger de syv byggere sammen med vejledningerne. Åbn den, du
+      skal bruge, og gå i gang — der er ikke noget at installere.
+    </p>
+    <p>
+      Der findes desuden en håndfuld mindre hjælpeværktøjer til billeder, lyd og
+      metadata. Dem behøver du ikke for at komme i gang, og de får deres egen
+      introduktion.
+    </p>
+    <p class="slut">
+      Byggeren klarer det tekniske. Det eneste, den ikke kan, er at vide, hvem der
+      står på billedet — det skal du fortælle den.
+    </p>
+    <a class="knap" href="lokahhist-dashboard.html">Åbn dashboardet med byggerne</a>
+  </section>
+
+  <footer>
+    <p>
+      Syd for Banen — Lokalhistorisk Forening, Roskilde · <a href="mailto:pelovskov@gmail.com">pelovskov@gmail.com</a><br>
+      Materialet må frit bruges til lokalhistoriske formål.<br>
+      Denne side er selv én fil: hent den, og den virker uden internet.
+    </p>
+  </footer>
+
+</main>
+
+<script>
+/* Tekststørrelse: A / A+ / A++. Indstillingen deles med startsiden og søgesiden. */
+(function(){
+  var knapper = document.querySelectorAll(".tekststr button");
+  function saet(v, gem){
+    if(v && v !== "normal"){ document.documentElement.setAttribute("data-tekst", v); }
+    else { document.documentElement.removeAttribute("data-tekst"); v = "normal"; }
+    knapper.forEach(function(k){ k.setAttribute("aria-pressed", String(k.dataset.str === v)); });
+    if(gem){ try{ localStorage.setItem("lokalhist-tekst", v); }catch(e){} }
+  }
+  var gemt = null;
+  try{ gemt = localStorage.getItem("lokalhist-tekst"); }catch(e){}
+  if(gemt){ saet(gemt, false); }
+  knapper.forEach(function(k){ k.addEventListener("click", function(){ saet(k.dataset.str, true); }); });
+})();
+</script>
+</body>
+</html>
